@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Presupuesto SC-2026-XXX · Constructor Saúl SpA</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+
+  :root{
+    --navy:#0F1216;
+    --cyan:#00B4D8;
+    --cyan-soft:#E6F8FC;
+    --paper:#FFFFFF;
+    --line:#E1E4E8;
+    --muted:#6B7280;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#EEF0F2;}
+  body{
+    font-family:'DM Sans', sans-serif;
+    color:var(--navy);
+    font-size:13.5px;
+    line-height:1.5;
+  }
+
+  .page{
+    width:210mm;
+    min-height:297mm;
+    margin:16px auto;
+    background:var(--paper);
+    padding:16mm 14mm 12mm 14mm;
+    position:relative;
+  }
+
+  /* ---------- HEADER ---------- */
+  .header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    border-bottom:3px solid var(--navy);
+    padding-bottom:14px;
+    margin-bottom:18px;
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .logo{
+    width:56px; height:56px;
+    flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .logo img{width:100%; height:100%; object-fit:contain;}
+  .sii-badge{
+    display:flex; align-items:center; gap:6px;
+  }
+  .sii-badge img{width:22px; height:22px; object-fit:contain;}
+  .sii-badge span{font-size:9px; color:var(--muted);}
+  .brand-text .name{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:26px;
+    letter-spacing:1.5px;
+    line-height:1;
+  }
+  .brand-text .name span{color:var(--cyan);}
+  .brand-text .tag{font-size:10.5px; color:var(--muted); margin-top:3px;}
+  .brand-text .contact{font-size:10.5px; color:var(--muted); margin-top:2px;}
+
+  .doc-meta{text-align:right;}
+  .doc-meta .doc-title{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:22px;
+    color:var(--navy);
+    letter-spacing:1px;
+  }
+  .doc-meta .doc-num{color:var(--cyan); font-weight:700; font-size:15px;}
+  .doc-meta .doc-date{font-size:11px; color:var(--muted); margin-top:4px;}
+
+  /* ---------- CLIENTE / OBRA ---------- */
+  .info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    margin-bottom:20px;
+    border:1px solid var(--line);
+  }
+  .info-box{padding:12px 14px;}
+  .info-box + .info-box{border-left:1px solid var(--line);}
+  .info-box h3{
+    margin:0 0 8px 0;
+    font-size:10px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--cyan);
+    font-weight:700;
+  }
+  .info-box p{margin:2px 0; font-size:12px;}
+  .info-box p b{color:var(--navy);}
+
+  /* ---------- RESUMEN DEL TRABAJO ---------- */
+  .brief{
+    background:var(--cyan-soft);
+    border-left:3px solid var(--cyan);
+    padding:10px 14px;
+    margin-bottom:20px;
+    font-size:12px;
+  }
+  .brief b{color:var(--navy);}
+
+  /* ---------- SECCIONES ---------- */
+  .section-title{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:15px;
+    letter-spacing:1px;
+    color:var(--navy);
+    border-bottom:2px solid var(--navy);
+    padding-bottom:4px;
+    margin:22px 0 8px 0;
+  }
+
+  table.items{
+    width:100%;
+    border-collapse:collapse;
+    font-size:11.8px;
+  }
+  table.items thead th{
+    background:var(--navy);
+    color:#fff;
+    text-align:left;
+    padding:7px 8px;
+    font-weight:500;
+    font-size:10.5px;
+    letter-spacing:0.4px;
+    text-transform:uppercase;
+  }
+  table.items thead th.num{text-align:right;}
+  table.items tbody td{
+    padding:7px 8px;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+  }
+  table.items tbody td.num{text-align:right; white-space:nowrap;}
+  table.items tbody tr:nth-child(even){background:#FAFBFC;}
+  table.items tfoot td{
+    padding:8px;
+    font-weight:700;
+    border-top:2px solid var(--navy);
+  }
+  .cat-row td{
+    background:var(--cyan-soft);
+    font-weight:700;
+    color:var(--navy);
+    font-size:10.5px;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    border-bottom:1px solid var(--line);
+  }
+
+  .totals{
+    margin-top:10px;
+    margin-left:auto;
+    width:60%;
+    font-size:12.5px;
+  }
+  .totals .row{display:flex; justify-content:space-between; padding:5px 8px;}
+  .totals .row.sub{color:var(--muted);}
+  .totals .row.total{
+    background:var(--navy);
+    color:#fff;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:18px;
+    letter-spacing:0.5px;
+    padding:9px 10px;
+    margin-top:4px;
+  }
+  .totals .row.total span:last-child{color:var(--cyan);}
+
+  .note-materiales{
+    margin-top:8px;
+    font-size:11px;
+    color:var(--muted);
+    font-style:italic;
+  }
+
+  /* ---------- PLAZO ---------- */
+  .plazo-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:10px;
+    margin-top:6px;
+  }
+  .plazo-card{
+    border:1px solid var(--line);
+    border-top:3px solid var(--cyan);
+    padding:10px 10px;
+    text-align:center;
+  }
+  .plazo-card .n{
+    font-family:'Bebas Neue', sans-serif;
+    font-size:24px;
+    color:var(--navy);
+  }
+  .plazo-card .l{font-size:9.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px;}
+
+  ol.etapas{margin:10px 0 0 0; padding-left:18px; font-size:11.8px;}
+  ol.etapas li{margin-bottom:4px;}
+  ol.etapas b{color:var(--navy);}
+
+  /* ---------- CONDICIONES ---------- */
+  .cond-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-top:8px;
+  }
+  .cond-grid ul{margin:0; padding-left:16px; font-size:11.3px;}
+  .cond-grid li{margin-bottom:5px;}
+  .cond-grid h4{
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--cyan);
+    margin:0 0 6px 0;
+  }
+
+  /* ---------- FIRMA ---------- */
+  .firma-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+    margin-top:38px;
+  }
+  .firma-box{text-align:center;}
+  .firma-line{border-top:1px solid var(--navy); margin-bottom:6px; padding-top:6px;}
+  .firma-box .role{font-size:10.5px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px;}
+
+  .footer{
+    margin-top:26px;
+    padding-top:10px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    font-size:9.5px;
+    color:var(--muted);
+  }
+  .footer .quote{font-style:italic;}
+
+  .print-bar{
+    max-width:210mm;
+    margin:0 auto 0 auto;
+    text-align:center;
+    padding:10px 0;
+  }
+  .print-bar button{
+    background:var(--navy);
+    color:var(--cyan);
+    border:none;
+    padding:10px 22px;
+    font-family:'DM Sans',sans-serif;
+    font-weight:700;
+    font-size:13px;
+    letter-spacing:0.5px;
+    cursor:pointer;
+  }
+  .print-bar button:hover{background:#1c232b;}
+
+  @media print{
+    body{background:#fff;}
+    .print-bar{display:none;}
+    .page{margin:0; width:auto; min-height:auto; padding:12mm 12mm;}
+  }
+</style>
+</head>
+<body>
+
+<div class="print-bar"><button onclick="window.print()">Descargar / Imprimir como PDF</button></div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="brand">
+      <div class="logo"><img src="data:image/jpeg;base64,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/wBbmn9pr71/4J5fscTeMNRsPil42sCugWribQ9OuE/4/pQfluXU/wDLJSMoP42Gfugbqn7Ff/BO++8ZTaf44+KmnyWHh4bZ7Dw5cKUmvu6vcL1SLuIz8z98Lw36jW9vFZ28cEEaQwxqESONQqqoGAABwAB2r57iPiKEIywWCldvSUl08l59309dt8Fl9mqtVeiHgYpaKK/KD6IKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooA5b4jfDHwz8WfDNxoHirSINX02XkJMMNE3Z43HzI47MpBr85vj7/wTl8W+BZbnVfh+8vjDQgS/2BsDUbdfTbwswHquG/2T1r9QqKAP5/7yzuNOvJrS7gltbuFiktvPGY5I29GUgEH2IqLOK/cL4pfADwB8ZrfZ4t8M2ep3AXal8FMV1HxxtmTDjHpnHtXyV8Qv+CWVlPJLP4H8ZzWWTlLHXYPOQe3nR7WA+qmgD89bS5msJxPayyWs46SwOY3H/Alwa/T3/gmZ4m1jxL8KfFL6vq1/qz2+t+VC1/dPOY0+zxHapcnAyScD1r5P8Uf8E9/jV4deQ2+g2Ovwp/y10vUYyT/wCTY36V9if8E7Php4q+GHw48Vaf4s0G90C9m1rzoob1ApkT7PEu5cEgjIIz7UAfWBr8E/2wPHXiHVP2jPidp17r2q3mn2viK9hgtJ76V4Yo1lIVFQttCgdABgV+9hr8XPj1+xV8b/AIlftG/EfU/D/wAPdRuNL1DxDeXFtfXEsNtDLE0pKurSOuVI5zX6DwdWw9DE1Z4iSiuXdtLr5nJiYOcUkfI6zhBhQFHovFL9or7b+H//AASK+KviCSOTxTr+geE7Ukb0jke/uB9FQKn/AI/X158H/wDglv8AB74cSQXmvwXnj/VI8HdrTBbQN6i2TCkezl6++xfFOV4VPlqc77R1/Hb8ThjhJSPy0+Cn7OvxE/aD1QWvgnw5cajbK+2fVJv3Njb+u+dhtz/srub0Ffqf+yx/wTk8HfAuaz8Q+KZIvGnjWLEkc80WLKxf1gib7zD/AJ6Pz3AWvrXStJsdD0+Cw06zt7Cxt12Q2trEsUUa+iqoAA+gq3X5pmvFOLzBOlS/dwfRbv1f6K3nc7aWFhT1erExiloor4s7AooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigBCM0AY6UtFABSbRnOBmlooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD//2Q==" alt="Constructor Saúl SpA"></div>
+      <div class="brand-text">
+        <div class="name">CONSTRUCTOR <span>SAÚL</span> SpA</div>
+        <div class="tag">Construcción, remodelación y mantención premium · RM</div>
+        <div class="contact">constructorsaul.com &nbsp;·&nbsp; @saul_el_constructor</div>
+      </div>
+    </div>
+    <div class="doc-meta">
+      <div class="doc-title">PRESUPUESTO</div>
+      <div class="doc-num">N° SC-2026-XXX</div>
+      <div class="doc-date">San Bernardo, Región Metropolitana · 14 de julio de 2026</div>
+    </div>
+  </div>
+
+  <div class="brief" style="background:var(--navy); border-left:3px solid var(--cyan); color:#fff; text-align:center; font-weight:700; letter-spacing:0.3px;">
+    ✅ Disponibilidad inmediata para iniciar la obra
+  </div>
+
+  <div class="brief" style="background:var(--cyan); border-left:3px solid var(--navy); color:var(--navy); text-align:center; font-weight:700; letter-spacing:0.3px;">
+    🎉 Oferta de lanzamiento: 5% de descuento por confirmar dentro de 7 días desde este presupuesto
+  </div>
+
+  <!-- CLIENTE / OBRA -->
+  <div class="info-grid">
+    <div class="info-box">
+      <h3>Cliente</h3>
+      <p><b>Nombre:</b> Alexandra Sepúlveda</p>
+      <p><b>Dirección:</b> Avenida Portales Oriente, Villa Maestranza</p>
+      <p><b>Comuna:</b> San Bernardo, RM</p>
+      <p><b>Teléfono:</b> +56 9 4994 1866</p>
+    </div>
+    <div class="info-box">
+      <h3>Obra</h3>
+      <p><b>Tipo:</b> Remodelación de baño (revestimientos)</p>
+      <p><b>Dimensiones:</b> 2,00 × 1,50 m · altura 2,30 m</p>
+      <p><b>Superficie muros a intervenir:</b> ≈ 14,5 m²</p>
+      <p><b>Superficie piso:</b> 3,0 m²</p>
+    </div>
+  </div>
+
+  <!-- RESUMEN -->
+  <div class="brief">
+    <b>Alcance del trabajo:</b> retiro de revestimiento cerámico de los 4 muros y reinstalación de cerámica nueva; refuerzo de tabiquería en los 3 muros no sólidos (el muro de la tina es albañilería/muro sólido) previo a la nueva instalación; retiro y recambio completo del piso; retiro del faldón de la tina (también revestido en cerámica) y reconstrucción con base internit + cerámica nueva; desmontaje y reinstalación de WC, lavamanos y llave de tina para permitir el trabajo. La tina y el espejo existentes <b>se mantienen</b> y se protegen durante la obra. <b>Los materiales (cerámica, adhesivo, fragüe, internit, impermeabilizante) los provee el cliente</b> — este presupuesto corresponde solo a mano de obra.
+  </div>
+
+  <!-- ITEMS -->
+  <div class="section-title">Detalle de mano de obra</div>
+  <table class="items">
+    <thead>
+      <tr>
+        <th style="width:6%">N°</th>
+        <th style="width:44%">Partida</th>
+        <th style="width:12%" class="num">Cantidad</th>
+        <th style="width:12%" class="num">Unidad</th>
+        <th style="width:13%" class="num">P. Unitario</th>
+        <th style="width:13%" class="num">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="cat-row"><td colspan="6">1. Preparación y desmontaje</td></tr>
+      <tr>
+        <td>1.1</td><td>Protección de tina, espejo y artefactos que se mantienen</td>
+        <td class="num">1</td><td class="num">gl</td><td class="num">$20.000</td><td class="num">$20.000</td>
+      </tr>
+      <tr>
+        <td>1.2</td><td>Desmontaje de WC, lavamanos y llave de tina para habilitar zona de trabajo</td>
+        <td class="num">1</td><td class="num">gl</td><td class="num">$70.000</td><td class="num">$70.000</td>
+      </tr>
+
+      <tr class="cat-row"><td colspan="6">2. Demolición y retiro</td></tr>
+      <tr>
+        <td>2.1</td><td>Picado y retiro de cerámica de muros</td>
+        <td class="num">14,5</td><td class="num">m²</td><td class="num">$6.500</td><td class="num">$94.250</td>
+      </tr>
+      <tr>
+        <td>2.2</td><td>Picado y retiro de cerámica de piso</td>
+        <td class="num">3,0</td><td class="num">m²</td><td class="num">$8.000</td><td class="num">$24.000</td>
+      </tr>
+      <tr>
+        <td>2.3</td><td>Carguío y retiro de escombros a botadero autorizado</td>
+        <td class="num">1</td><td class="num">gl</td><td class="num">$70.000</td><td class="num">$70.000</td>
+      </tr>
+
+      <tr class="cat-row"><td colspan="6">3. Refuerzo de estructura</td></tr>
+      <tr>
+        <td>3.1</td><td>Revisión y refuerzo de tabiquería en 3 muros no sólidos (pie derechos, placas, fijaciones tras retiro de cerámica)</td>
+        <td class="num">11,0</td><td class="num">m²</td><td class="num">$20.000</td><td class="num">$220.000</td>
+      </tr>
+
+      <tr class="cat-row"><td colspan="6">4. Impermeabilización</td></tr>
+      <tr>
+        <td>4.1</td><td>Impermeabilización de piso y zonas húmedas previo a instalación de cerámica</td>
+        <td class="num">1</td><td class="num">gl</td><td class="num">$45.000</td><td class="num">$45.000</td>
+      </tr>
+
+      <tr class="cat-row"><td colspan="6">5. Instalación de revestimientos nuevos</td></tr>
+      <tr>
+        <td>5.1</td><td>Instalación de cerámica nueva en muros</td>
+        <td class="num">14,5</td><td class="num">m²</td><td class="num">$15.000</td><td class="num">$217.500</td>
+      </tr>
+      <tr>
+        <td>5.2</td><td>Instalación de cerámica nueva en piso</td>
+        <td class="num">3,0</td><td class="num">m²</td><td class="num">$18.000</td><td class="num">$54.000</td>
+      </tr>
+      <tr>
+        <td>5.3</td><td>Fragüe, sellos y silicona sanitaria en encuentros muro/piso/artefactos</td>
+        <td class="num">1</td><td class="num">gl</td><td class="num">$35.000</td><td class="num">$35.000</td>
+      </tr>
+
+      <tr class="cat-row"><td colspan="6">6. Faldón de tina</td></tr>
+      <tr>
+        <td>6.1</td><td>Picado y retiro de cerámica del faldón de la tina</td>
+        <td class="num">1</td><td class="num">gl</td><td class="num">$15.000</td><td class="num">$15.000</td>
+      </tr>
+      <tr>
+        <td>6.2</td><td>Instalación de base internit (placa cementicia) en estructura del faldón</td>
+        <td class="num">1</td><td class="num">gl</td><td class="num">$35.000</td><td class="num">$35.000</td>
+      </tr>
+      <tr>
+        <td>6.3</td><td>Instalación de cerámica nueva en faldón</td>
+        <td class="num">1</td><td class="num">gl</td><td class="num">$20.000</td><td class="num">$20.000</td>
+      </tr>
+
+      <tr class="cat-row"><td colspan="6">7. Cierre de obra</td></tr>
+      <tr>
+        <td>7.1</td><td>Reinstalación de WC, lavamanos y llave de tina</td>
+        <td class="num">1</td><td class="num">gl</td><td class="num">$75.000</td><td class="num">$75.000</td>
+      </tr>
+      <tr>
+        <td>7.2</td><td>Aseo final de obra</td>
+        <td class="num">1</td><td class="num">gl</td><td class="num">$25.000</td><td class="num">$25.000</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="totals">
+    <div class="row sub"><span>Subtotal mano de obra</span><span>$1.019.750</span></div>
+    <div class="row sub" style="color:var(--cyan); font-weight:700;"><span>Descuento oferta 5% (válido 7 días)</span><span>-$51.000</span></div>
+    <div class="row total"><span>TOTAL CON DESCUENTO</span><span>$968.750</span></div>
+  </div>
+  <div class="note-materiales">* Precios en CLP, sin IVA (boleta/factura SpA). No incluye materiales — cerámica, adhesivo, fragüe, internit e impermeabilizante los provee el cliente. Valores referenciales de mercado para la zona de San Bernardo, RM (julio 2026); pueden ajustarse tras verificación de estado de cañerías al abrir los muros. Precio regular $1.019.750 · descuento de oferta válido por 7 días desde la fecha de emisión de este presupuesto.</div>
+
+  <!-- PLAZO -->
+  <div class="section-title">Plazo de ejecución</div>
+  <div class="plazo-grid" style="grid-template-columns:repeat(5,1fr);">
+    <div class="plazo-card" style="border-top-color:var(--navy);"><div class="n">Inmediata</div><div class="l">Disponibilidad de inicio</div></div>
+    <div class="plazo-card"><div class="n">9–11</div><div class="l">Días hábiles de trabajo</div></div>
+    <div class="plazo-card"><div class="n">~2</div><div class="l">Semanas corridas (con secados)</div></div>
+    <div class="plazo-card"><div class="n">1+1</div><div class="l">Maestro + ayudante</div></div>
+    <div class="plazo-card"><div class="n">24h</div><div class="l">Secado mínimo impermeabilización</div></div>
+  </div>
+
+  <ol class="etapas">
+    <li><b>Día 1:</b> protecciones, desmontaje de artefactos, picado y retiro de cerámica de muros, piso y faldón de tina, retiro de escombros.</li>
+    <li><b>Días 2–3:</b> refuerzo de tabiquería en los 3 muros no sólidos + base internit en faldón de tina.</li>
+    <li><b>Día 4:</b> impermeabilización de piso y zonas húmedas (+ 24 h de secado).</li>
+    <li><b>Días 5–6:</b> instalación de cerámica en muros.</li>
+    <li><b>Día 7:</b> instalación de cerámica en piso y en faldón de tina.</li>
+    <li><b>Día 8:</b> fragüe y sellos (requiere curado previo del adhesivo).</li>
+    <li><b>Días 9–11:</b> reinstalación de WC, lavamanos y llave de tina, aseo final y entrega.</li>
+  </ol>
+
+  <!-- CONDICIONES -->
+  <div class="section-title">Condiciones</div>
+  <div class="cond-grid">
+    <div>
+      <h4>Incluye</h4>
+      <ul>
+        <li>Mano de obra completa según detalle de partidas.</li>
+        <li>Desmontaje y reinstalación de artefactos existentes (WC, lavamanos, llave de tina).</li>
+        <li>Protección de tina y espejo durante toda la obra.</li>
+        <li>Retiro de escombros a botadero autorizado.</li>
+        <li>Garantía de mano de obra: 6 meses desde la entrega.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>No incluye</h4>
+      <ul>
+        <li>Materiales: cerámica, adhesivo, fragüe, impermeabilizante, fijaciones.</li>
+        <li>Cambio de cañerías o gasfitería si se detectan filtraciones al abrir los muros (se cotiza aparte con evidencia fotográfica).</li>
+        <li>Reparaciones no visibles antes de picar (imprevistos se informan y cotizan antes de ejecutar).</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- RESPALDO Y EXPERIENCIA -->
+  <div class="section-title">Respaldo y experiencia</div>
+  <div class="cond-grid">
+    <div>
+      <h4>Trayectoria</h4>
+      <ul>
+        <li>Años de experiencia en remodelaciones de baños, cocinas, humedad/filtraciones y mantención integral en la RM.</li>
+        <li>Reseñas y recomendaciones con calificación 5★ en 2x3 y Google.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Cómo trabajamos</h4>
+      <ul>
+        <li>Todos los trabajos son ejecutados directamente por el dueño de la empresa, con herramienta y transporte propio — sin subcontratos ni recargos de terceros.</li>
+        <li>Todo el proceso queda registrado en Instagram <b>@saul_el_constructor</b>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FORMA DE PAGO -->
+  <div class="section-title">Forma de pago</div>
+  <div style="font-size:11px; color:var(--muted); margin-bottom:4px;">Calculado sobre el total con descuento de oferta ($968.750), válido si se confirma dentro de 7 días.</div>
+  <div class="plazo-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="plazo-card">
+      <div class="n">50%</div>
+      <div class="l">Abono al iniciar</div>
+      <div style="font-size:11px; color:var(--navy); font-weight:700; margin-top:4px;">$484.375</div>
+    </div>
+    <div class="plazo-card">
+      <div class="n">25%</div>
+      <div class="l">Avance de obra</div>
+      <div style="font-size:11px; color:var(--navy); font-weight:700; margin-top:4px;">$242.188</div>
+    </div>
+    <div class="plazo-card">
+      <div class="n">25%</div>
+      <div class="l">Entrega final</div>
+      <div style="font-size:11px; color:var(--navy); font-weight:700; margin-top:4px;">$242.187</div>
+    </div>
+  </div>
+
+  <!-- CTA WHATSAPP -->
+  <div style="text-align:center; margin:26px 0 8px 0; padding:18px; background:var(--cyan-soft); border:1px solid var(--cyan);">
+    <div style="font-family:'Bebas Neue', sans-serif; font-size:16px; letter-spacing:0.5px; color:var(--navy); margin-bottom:10px;">
+      ¿De acuerdo con el presupuesto?
+    </div>
+    <a href="https://wa.me/56942657719?text=Hola%20Constructor%20Sa%C3%BAl%2C%20confirmo%20el%20presupuesto%20SC-2026-XXX%20para%20el%20ba%C3%B1o%20de%20Alexandra%20Sep%C3%BAlveda%20(Av.%20Portales%20Oriente%2C%20Villa%20Maestranza%2C%20San%20Bernardo)%20con%20el%205%25%20de%20descuento%20de%20oferta.%20Quisiera%20agendar%20fecha%20de%20inicio."
+       style="display:inline-block; background:var(--navy); color:var(--cyan); text-decoration:none; font-weight:700; font-size:13.5px; letter-spacing:0.4px; padding:12px 26px;">
+      ✅ Confirmar y agendar por WhatsApp
+    </a>
+    <div style="font-size:10px; color:var(--muted); margin-top:6px;">Oferta de 5% válida por 7 días desde la fecha de este presupuesto.</div>
+    <div style="font-size:10.5px; color:var(--muted); margin-top:8px;">+56 9 4265 7719 · Constructor Saúl SpA</div>
+  </div>
+
+  <!-- FIRMA -->
+  <div class="firma-grid">
+    <div class="firma-box">
+      <div class="firma-line">Constructor Saúl SpA</div>
+      <div class="role">Contratista</div>
+    </div>
+    <div class="firma-box">
+      <div class="firma-line">Nombre cliente</div>
+      <div class="role">Acepta presupuesto</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="quote">"El presupuesto se cierra frente al cliente, no días después."</div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span>Presupuesto válido por 15 días · constructorsaul.com</span>
+      <span class="sii-badge"><img src="data:image/jpeg;base64,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" alt="Facturación electrónica SII"><span>Factura electrónica SII</span></span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
